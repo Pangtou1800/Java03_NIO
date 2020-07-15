@@ -2,9 +2,7 @@
 
 ## 1. Java NIO 简介
 
-    Java NIO(New IO/Non Blocking IO)是从Java1.4版本开始引入的一个新的IO API，可以替代标准
-    的JavaIO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区
-    的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。
+    Java NIO(New IO/Non Blocking IO)是从Java1.4版本开始引入的一个新的IO API，可以替代标准的JavaIO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。
 
 ## 2. Java NIO与IO的主要区别
 
@@ -15,20 +13,15 @@
 
 ## 3. 缓冲区（Buffer）和通道（Channel）
 
-    Java NIO系统的核心在于：通道（Channel）和缓冲区（Buffer）。通道表示打开到IO设备的连接。
-    若需要使用NIO系统，需要获取用于连接IO设备的通道以及用于容纳数据的缓冲区。然后操作缓冲区
-    对数据进行处理。
+    Java NIO系统的核心在于：通道（Channel）和缓冲区（Buffer）。通道表示打开到IO设备的连接。若需要使用NIO系统，需要获取用于连接IO设备的通道以及用于容纳数据的缓冲区。然后操作缓冲区对数据进行处理。
 
     简而言之，Channel负责传输，Buffer负责存储。
 
 ### 缓冲区（buffer）
 
-    
     一、缓冲区（Buffer）
-        一个用于特定基本数据类型的容器。
-        由java.nio包所定义，所有缓冲区都是Buffer抽象类的子类。
-        在Java NIO中，负责数据的存取。缓冲区就是数组。用于存储不同类型的数据。
-        根据数据类型不同（boolean除外），提供了相应类型的缓冲区：
+
+        一个用于特定基本数据类型的容器。由java.nio包所定义，所有缓冲区都是Buffer抽象类的子类。在Java NIO中，负责数据的存取。缓冲区就是数组。用于存储不同类型的数据。根据数据类型不同（boolean除外），提供了相应类型的缓冲区：
             ·ByteBuffer
             ·CharBuffer
             ·ShortBuffer
@@ -43,7 +36,7 @@
         ·put()：存入数据到缓冲区中
         ·get()：获取缓冲区中的数据
 
-    四、缓冲区中的四个核心属性：
+    三、缓冲区中的四个核心属性：
         ·capacity:容量，表示缓冲区中最大存储数据的容量，一旦声明不能改变。
         ·limit:界限，表示缓冲区中可以操作数据的大小。 => limit后的数据不能读写
         ·position:位置，表示缓冲区中正在操作数据的位置。
@@ -73,7 +66,49 @@
     物理磁盘  -- read() --> 缓存 <-- 物理内存映射文件 --> 缓存  -- read()  --> 应用程序
     物理磁盘 <-- write() -- 缓存 <-- 物理内存映射文件 --> 缓存 <-- write() --  应用程序
 
-## 4. 文件通道（FileChannel）
+## 4. 通道（Channel）
+
+    由java.nio.channels包定义。Channel表示IO源与目标打开的连接。Channel类似于传统的“流”。只不过Channel本身不能直接访问数据，Channel只能与Buffer进行交互。
+
+    一、通道（Channel）：
+        用于源节点与目标节点的连接。在Java NIO中负责缓冲区中数据的传输。
+        Channel本身不存储数据，因此需要配合缓冲区进行传输。
+    
+    二、通道的主要实现类：
+        java.nio.channels.Channel 接口
+            |--FileChannel
+            |--SocketChannel
+            |--ServerSocketChannel
+            |--DatagramChannel
+    
+    三、获取通道
+
+        1. Java针对支持通道的类提供了getChannel()方法
+
+            本地IO：
+                FileInputStream/FileOutputStream
+                RandomAccessFile
+            网络IO：
+                Socket
+                ServerSocket
+                DatagramSocket
+
+        2. 在JDK1.7中的NIO.2针对各个通道提供了一个静态方法open()
+
+        3. 在JDK1.7中的NIO.2的Files工具类的newByteChannel()
+
+    
+    四、通道之间的数据传输
+        transferFrom()
+        transferTo()
+    
+    五、分散（Scatter）与聚集（Gather）
+        分散读取（Scattering Reads）：将通道中的数据分散到多个缓冲区中
+        聚集写入（Gathering Writes）：将多个缓冲区中的数据聚集到一个通道中
+    
+    六、字符集（Charset）
+        编码：字符串(char) -> 字节数组(byte)
+        解码：字节数组(byte) -> 字符串(char)
 
 ## 5. NIO的非阻塞式网络通信
 
