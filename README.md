@@ -116,6 +116,36 @@
 
     > SocketChannle, ServerSocketChannel, DatagramChannel
 
+### 阻塞与非阻塞
+
+    ·传统的IO流都是阻塞式的。
+        也就是说，当一个线程调用read()或write()时，改线程被阻塞，直到有一些数据被读入或写入，该线程在此期间不能执行其他任务。
+        因此，在完成网络通信的IO操作时，由于线程会阻塞，所以服务端必须为每一个客户端都提供一个独立的线程进行处理。
+        当服务器端需要处理大量客户时，性能急剧下降。
+    ·Java NIO是非阻塞式的。
+        当线程从某通道读写数据时，若没有数据可用，该线程可以进行其他。
+        线程通常将非阻塞IO的空闲时间用于在其他通道上执行IO操作，所以单独的线程可以管理多个输入和输出通道。
+        因此，NIO可以让服务器端使用一个或几个有限的线程来同时处理连接到服务器端的所有客户端。
+
+### 使用NIO完成网络通信的三个核心
+
+    1.通道（Channel）：负责连接    
+
+        java.nio.channels.Channel接口    
+            |--SelectableChannel抽象类    
+                |--SocketChannel    
+                |--ServerSocketChannel    
+                |--DatagramChannel    
+    
+                |--Pipe.SinkChannel    
+                |--Pipe.SourceChannel    
+        
+        ※FileChannel不能切换为非阻塞模式    
+
+    2.缓冲区（Buffer）：负责数据的存储    
+
+    3.选择器（Selector）：是SelectChannel的多路复用器。用于监控SelectableChannel的IO状况    
+
 ## 6. 管道（Pipe）
 
 ## 7. Java NIO2（Path, Paths 与 Files）
