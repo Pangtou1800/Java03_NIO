@@ -114,7 +114,7 @@
 
     > 选择器（Selector）
 
-    > SocketChannle, ServerSocketChannel, DatagramChannel
+    > SocketChannel, ServerSocketChannel, DatagramChannel
 
 ### 阻塞与非阻塞
 
@@ -148,4 +148,108 @@
 
 ## 6. 管道（Pipe）
 
+    Java NIO管道是2个线程之间的单向数据连接。
+    Pipe有一个source通道和一个sink通道。
+    数据会被写到sink通道，从source通道读取。
+
 ## 7. Java NIO2（Path, Paths 与 Files）
+
+---
+
+# 基础知识补充：网络编程
+
+## 一、网络编程概述
+
+    ·Java是Internet上的语言，它从语言级上提供了对网络应用程序的支持，程序员能够很容易开发常见的网络应用程序。
+
+    ·Java提供的网络类库，可以实现无痛的网络连接，联网的底层细节被隐藏在Java的本机安装系统里，由JVM进行控制。
+    并且Java实现了一个跨平台的网络库，程序员面对的是一个统一的网络编程环境。
+
+### 计算机网络
+
+### 网络编程的目的
+
+    直接或间接地通过网络协议与其他计算机实现数据交换，进行通讯。
+
+### 网络编程中的两个主要问题
+
+    1.如何准确定位网络上的一台或多台主机，以及定位主机上特定的应用
+
+    2.找到主机后如何可靠高效地进行数据传输
+
+## 二、网络通信中的两个要素
+
+### 通信双方地址
+
+    ·IP地址
+
+    ·端口号
+
+### 一定的规则
+
+    ·OSI参考模型
+        模型过于理想化，未能在因特网上进行广泛推广
+
+    ·TCP/IP参考模型（或TCP/IP协议）
+        事实上的国际标准
+
+<style>
+.show td {
+
+    border: 1px solid grey;
+    text-align: center;
+
+}
+</style>
+<table class="show">
+<tr>
+<th>OSI参考模型</th>
+<th>TCP/IP参考模型</th>
+<th>TCP/IP参考模型各层对应的协议</th>
+</tr>
+<tr>
+<td>应用层</td>
+<td rowspan="3">应用层</td>
+<td rowspan="3">HTTP, FTP, Telnet, DNS, ...</td>
+</tr>
+<tr>
+<td>表示层</td>
+</tr>
+<tr>
+<td>会话层</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>传输层</td>
+<td>TCP, UDP, ...</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>网络层</td>
+<td>IP, ICMP, ARP, ...</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td rowspan="2">物理+数据链路层</td>
+<td rowspan="2">Link</td>
+</tr>
+<tr>
+<td>物理层
+</tr>
+</table>
+
+### IP(Internet Protocol)地址：InetAddress
+
+    ·唯一的标识Internet上的计算机
+    ·本地回环地址(hostAddress): 127.0.0.1
+    ·主机名(hostName)：localhost
+
+    ·IP地址的分类：
+        1）
+            >IPv4
+                4个字节组成，4个0-255。大概42亿，30亿分配在北美，亚洲4亿。
+            >IPv6
+                16个字组成，写成8个无符号整数。
+        2）
+            >公网地址（万维网使用）
+            >私有地址（局域网使用） => 192.168开头
