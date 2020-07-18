@@ -342,6 +342,41 @@
                           --- ACK=Y,seq=X -->
                                                 挥手成功
 
+#### UDP网络通信
+
+    ·类DatagramSocket和DatagramPacket实现了基于UDP协议的网络程序。
+
+    ·UDP数据报通过数据报套接字DatagramSocket发送和接收.
+    系统不保证UDP数据报一定能够安全送到目的地，也不能确定什么时候可以抵达。
+
+    ·DatagramPacket对象封装了UDP数据报，在数据报中包含了发送端的IP地址和端口号以及接收端的IP地址和端口号。
+
+    ·UDP协议中的每个数据报都给出了完整的地址信息，因此无需建立发送方和接收方的连接。
+
+### URL编程
+
+    URL(Uniform Resource Locator)：统一资源定位符，它表示Internet上某一资源的地址。
+
+    ·它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。
+
+    ·URL的基本结构由5个部分组成：
+    <传输协议>://<主机名>:<端口号>/<文件名>#片段名?参数列表
+
+#### java.net.URL的常用方法
+
+    public String getProtocol()
+
+    public String getHost()
+
+    public String getPort()
+
+    public String getPath()
+
+    public String getFile()
+
+    public String getQuery()
+    
+
 <style>
 .show {
 
