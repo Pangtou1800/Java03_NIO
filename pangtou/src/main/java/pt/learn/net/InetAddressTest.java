@@ -18,6 +18,10 @@ import java.net.UnknownHostException;
  * 1)getByName(String hostname)<br>
  * 2)getLocalHost()<br>
  * 两个常用方法：getHostName(), getHostAddress()<br>
+ * 7. 端口号:正在计算机上运行的进程<br>
+ * 要求：不同进程有不同的端口号<br>
+ * 范围：0~65535<br>
+ * 8. 端口号与IP地址组合得出一个网络套接字(Socket)<br>
  */
 public class InetAddressTest {
     public static void main(String[] args) {
