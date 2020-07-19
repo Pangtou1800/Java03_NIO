@@ -15,7 +15,8 @@ import java.net.URLConnection;
 
 public class URLTest1 {
 
-    // TODO: Why won't this work?
+    // Why won't this work?
+    // => Cause there's gotta be a response-header
 
     public static void main(String[] args) {
 
@@ -59,6 +60,9 @@ public class URLTest1 {
         System.out.println(baos.toString());
 
         baos.close();
+
+        // Http header first
+        os.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
 
         FileInputStream fis = new FileInputStream("1.png");
         while ((len = fis.read(buf)) != -1) {

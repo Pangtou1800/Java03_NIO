@@ -1,6 +1,5 @@
 package pt.learn.net;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -10,7 +9,8 @@ import java.net.Socket;
 
 public class HttpServer {
 
-    // TODO: Why won't this work?
+    // Why won't this work?
+    // => Cause there's gotta be a response-header
 
     public static void main(String[] args) {
         HttpServer server = new HttpServer();
@@ -34,21 +34,21 @@ public class HttpServer {
             socket = serverSocket.accept();
             output = socket.getOutputStream();
 
-            File file = new File("1.png");
-            FileInputStream fis = null;
+            // Http header first
+            output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+
             byte[] buf = new byte[1024];
-            if (file.exists()) {
-                System.out.println("exists");
-                fis = new FileInputStream(file);
-                int ch = fis.read(buf);
-                while (ch != -1) {
-                    output.write(buf, 0, ch);
-                    ch = fis.read(buf);
-                }
+            FileInputStream fis = new FileInputStream("1.png");
+
+            int len = -1;
+            while ((len = fis.read(buf)) != -1) {
+                output.write(buf, 0, len);
             }
             fis.close();
+            output.close();
 
             socket.close();
+            serverSocket.close();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
